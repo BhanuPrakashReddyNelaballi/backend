@@ -1,6 +1,7 @@
 package com.libraryManagement.controller;
 
 import com.libraryManagement.dto.requestDto.AuthRequestDto;
+import com.libraryManagement.dto.requestDto.MemberUpdateDto;
 import com.libraryManagement.dto.responseDto.MemberProfileDto;
 import com.libraryManagement.dto.requestDto.RegisterRequestDto;
 import com.libraryManagement.dto.responseDto.AuthResponseDto;
@@ -57,8 +58,6 @@ public class AuthController {
         }
     }
 
-
-
     @GetMapping("/profile")
     public MemberProfileDto getProfile(Authentication authentication) {
         String email = authentication.getName();  // always non-null when authenticated
@@ -72,8 +71,20 @@ public class AuthController {
         profile.setEmail(member.getEmail());
         profile.setPhone(member.getPhone());
         profile.setAddress(member.getAddress());
-        profile.setMembershipStatus(member.getMembershipStatus().name());
+        profile.setMembershipStatus(member.getMembershipStatus());
         return profile;
+    }
+
+    @PutMapping("/profile")
+    public MemberProfileDto updateProfile(Authentication authentication,@Valid @RequestBody MemberUpdateDto dto){
+        String email = authentication.getName();
+        Member m=memberRepository.findByEmail(email)
+                .orElseThrow(()->new UsernameNotFoundException("User not found"));
+        m.setName(dto.getName());
+        m.setPhone(dto.getPhone());
+        m.setAddress(dto.getAddress());
+        memberRepository.save(m);
+        return new MemberProfileDto(m.getMemberId(),m.getName(),m.getEmail(),m.getPhone(),m.getAddress(),m.getMembershipStatus());
     }
     @PostMapping("/logout")
     public String logout(@RequestHeader("Authorization") String token) {

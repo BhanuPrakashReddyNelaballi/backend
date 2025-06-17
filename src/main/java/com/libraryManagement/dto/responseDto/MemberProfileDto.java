@@ -1,12 +1,14 @@
 package com.libraryManagement.dto.responseDto;
 
+import com.libraryManagement.enums.MembershipStatus;
+
 public class MemberProfileDto {
     private Long id;
     private String name;
     private String email;
     private String phone;
     private String address;
-    private String membershipStatus;
+    private MembershipStatus membershipStatus;
     // getters and setters
 
     public Long getId() {
@@ -49,11 +51,23 @@ public class MemberProfileDto {
         this.address = address;
     }
 
-    public String getMembershipStatus() {
+    public MembershipStatus getMembershipStatus() {
         return membershipStatus;
     }
 
-    public void setMembershipStatus(String membershipStatus) {
+    public void setMembershipStatus(MembershipStatus membershipStatus) {
+        this.membershipStatus = membershipStatus;
+    }
+
+    public MemberProfileDto() {
+    }
+
+    public MemberProfileDto(Long id, String name, String email, String phone, String address, MembershipStatus membershipStatus) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
         this.membershipStatus = membershipStatus;
     }
 }
