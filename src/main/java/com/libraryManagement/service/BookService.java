@@ -23,4 +23,6 @@ public interface BookService {
     List<BookResponseDto> searchByAuthor(String author);
 
     List<BookResponseDto> searchByGenre(String genre);
+
+    long countAllBooks();
 }

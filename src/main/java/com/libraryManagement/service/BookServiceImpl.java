@@ -78,4 +78,9 @@ public class BookServiceImpl implements BookService {
     public List<BookResponseDto> searchByGenre(String genre) {
         return bookRepository.findByGenreContainingIgnoreCase(genre).stream().map(book -> new BookResponseDto(book.getBookId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.getIsbn(), book.getYearPublished(), book.getAvailableCopies())).collect(Collectors.toList());
     }
+
+    @Override
+    public long countAllBooks(){
+        return bookRepository.count();
+    }
 }

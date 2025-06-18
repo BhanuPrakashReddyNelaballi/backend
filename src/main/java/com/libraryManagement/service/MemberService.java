@@ -15,4 +15,5 @@ public interface MemberService {
     List<MemberResponseDto> searchByName(String name);
     List<MemberResponseDto> searchByEmail(String email);
     MemberResponseDto updateMembershipStatus(Long id, MembershipStatus status);
+    long countAllMembers();
 }

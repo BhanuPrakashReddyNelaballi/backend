@@ -86,6 +86,11 @@ public class MemberServiceImpl implements MemberService {
         Member updatedMember = memberRepository.save(member);
         return mapToResponse(updatedMember);
     }
+
+    @Override
+    public long countAllMembers(){
+        return memberRepository.count();
+    }
     
 
     private MemberResponseDto mapToResponse(Member member) {
