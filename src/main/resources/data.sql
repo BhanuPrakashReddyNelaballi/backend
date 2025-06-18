@@ -11,8 +11,8 @@ INSERT INTO lib.book (book_id,title, author, genre, isbn, year_published, availa
 (8,'The Hobbit', 'J.R.R. Tolkien', 'Fantasy', '9780345339683', 1937, 8),
 (9,'Crime and Punishment', 'Fyodor Dostoevsky', 'Psychological', '9780679734505', 1866, 5),
 (10,'Brave New World', 'Aldous Huxley', 'Science Fiction', '9780060850524', 1932, 4);
-
---Member
+--
+----Member
 
 INSERT INTO lib.member (member_id,name, email, phone, address, membership_status, password, user_role) VALUES
 (1,'Alice Johnson', 'alice@example.com', '9876543210', '123 Street, City', 'ACTIVE', '$2a$10$RQi5agPK.EQuPgYc7RSsYOsll.GdaA7oMGammkKZPml0OzfTD9Doe', 'MEMBER'),
@@ -26,7 +26,7 @@ INSERT INTO lib.member (member_id,name, email, phone, address, membership_status
 (9,'Isabella White', 'isabella@example.com', '1098765432', '2021 Street, City', 'ACTIVE', '$2a$10$X/qccEHU.K7P9wubxtE/Lu847JYpWsorhTVaGv.c3WDVZJ8eMm6E.', 'MEMBER'),
 (10,'Jack Thomas', 'jack@example.com', '0987654321', '2223 Avenue, Town', 'ACTIVE', '$2a$10$aq9miE29Z2xluExWLn.lReO9nWDSGplsybKKPDRzvungPsRJalQ06', 'MEMBER');
 
---Borrowing Transaction
+----Borrowing Transaction
 
 INSERT INTO lib.borrowing_transaction (transactionid,book_id, member_id, borrow_date, return_date, status) VALUES
 (1,1, 1, '2025-06-01', null, 'BORROWED'),
@@ -54,7 +54,7 @@ INSERT INTO lib.Fine (amount, fineid, last_payment_date,transaction_date, member
 
 --Notification
 
-INSERT INTO lib.Notification (dateSent, notificationid,member_id, message) VALUES
+INSERT INTO lib.Notification (date_Sent, notificationid,member_id, message) VALUES
 ('2025-06-03', 1, 2, 'Book ID: 2 (To Kill a Mockingbird) - Your book is overdue. Please return it or pay the overdue fine to keep using the book.'),
 ('2025-06-03', 2, 3, 'Book ID: 3 (1984) - Your book is overdue. Please return it or pay the overdue fine to keep using the book.'),
 ('2025-06-03', 3, 5, 'Book ID: 5 (The Catcher in the Rye) - Your book is overdue. Please return it or pay the overdue fine to keep using the book.'),
