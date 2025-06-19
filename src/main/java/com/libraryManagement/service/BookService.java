@@ -14,7 +14,7 @@ public interface BookService {
 
     Optional<BookResponseDto> getBookById(int id);
 
-    BookResponseDto updateBook(int id, BookRequestDto updatedBook);
+    BookResponseDto updateBook(int id, int availableCopies);
 
     void deleteBook(int id);
 

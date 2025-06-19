@@ -45,17 +45,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookResponseDto updateBook(int id, BookRequestDto updatedBookDto) {
-        return bookRepository.findById(id).map(book -> {
-            book.setTitle(updatedBookDto.getTitle());
-            book.setAuthor(updatedBookDto.getAuthor());
-            book.setGenre(updatedBookDto.getGenre());
-            book.setIsbn(updatedBookDto.getIsbn());
-            book.setYearPublished(updatedBookDto.getYearPublished());
-            book.setAvailableCopies(updatedBookDto.getAvailableCopies());
-            Book updatedBook = bookRepository.save(book);
-            return new BookResponseDto(updatedBook.getBookId(), updatedBook.getTitle(), updatedBook.getAuthor(), updatedBook.getGenre(), updatedBook.getIsbn(), updatedBook.getYearPublished(), updatedBook.getAvailableCopies());
-        }).orElseThrow(() -> new BookNotFoundException("Book not found with ID: " + id));
+    public BookResponseDto updateBook(int id, int availableCopies) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(()-> new BookNotFoundException("Book not Found with ID: "+ id));
+        book.setAvailableCopies(availableCopies);
+        Book updatedBook = bookRepository.save(book);
+        return new BookResponseDto(updatedBook.getBookId(), updatedBook.getTitle(), updatedBook.getAuthor(), updatedBook.getGenre(), updatedBook.getIsbn(), updatedBook.getYearPublished(), updatedBook.getAvailableCopies());
     }
 
     @Override

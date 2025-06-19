@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/books")
-@CrossOrigin(origins = "*")
 public class BookController {
     @Autowired
     private final BookService bookService;
@@ -54,8 +53,8 @@ public class BookController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
     @PutMapping("/{id}")
-    public ResponseEntity<BookResponseDto> updateBook(@PathVariable int id, @RequestBody BookRequestDto book) {
-        BookResponseDto updated = bookService.updateBook(id, book);
+    public ResponseEntity<BookResponseDto> updateBook(@PathVariable int id, @RequestParam int availableCopies) {
+        BookResponseDto updated = bookService.updateBook(id, availableCopies);
         return ResponseEntity.ok(updated);
     }
 

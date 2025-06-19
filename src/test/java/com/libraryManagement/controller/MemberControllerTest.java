@@ -1,7 +1,7 @@
 package com.libraryManagement.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.libraryManagement.dto.requestDto.MemberRequestDto;
+import com.libraryManagement.dto.requestDto.MemberUpdateDto;
 import com.libraryManagement.dto.responseDto.MemberResponseDto;
 import com.libraryManagement.enums.MembershipStatus;
 import com.libraryManagement.service.MemberService;
@@ -76,10 +76,10 @@ public class MemberControllerTest {
     void updateMember_ReturnsUpdatedMember() throws Exception {
         mockMvc= MockMvcBuilders.standaloneSetup(memberController).build();
         Long memberId = 1L;
-        MemberRequestDto requestDto = new MemberRequestDto("John Doe", "john@example.com", "1234567890", "123 Street", "password", null, MembershipStatus.ACTIVE);
+        MemberUpdateDto requestDto = new MemberUpdateDto("John Doe",  "1234567890", "123 Street");
         MemberResponseDto responseDto = new MemberResponseDto(memberId, "John Doe", "john@example.com", "1234567890", "123 Street", MembershipStatus.ACTIVE, null);
 
-        Mockito.when(memberService.updateMember(Mockito.eq(memberId), Mockito.any(MemberRequestDto.class))).thenReturn(responseDto);
+        Mockito.when(memberService.updateMember(Mockito.eq(memberId), Mockito.any(MemberUpdateDto.class))).thenReturn(responseDto);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/members/update/{id}", memberId)
                         .contentType(MediaType.APPLICATION_JSON)

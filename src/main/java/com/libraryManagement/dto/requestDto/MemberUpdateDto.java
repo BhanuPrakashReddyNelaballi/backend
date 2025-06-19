@@ -31,7 +31,7 @@ public class MemberUpdateDto {
 
     public MemberUpdateDto(String name, String phone, String address) {
         this.name = name;
-        Phone = phone;
+        this.Phone = phone;
         this.address = address;
     }
 }

@@ -1,6 +1,7 @@
 package com.libraryManagement.controller;
 
 import com.libraryManagement.dto.requestDto.MemberRequestDto;
+import com.libraryManagement.dto.requestDto.MemberUpdateDto;
 import com.libraryManagement.dto.responseDto.MemberResponseDto;
 import com.libraryManagement.enums.MembershipStatus;
 import com.libraryManagement.service.MemberService;
@@ -13,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/members")
-@CrossOrigin(origins = "*")
 public class MemberController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class MemberController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
-    public MemberResponseDto updateMember(@PathVariable Long id, @RequestBody MemberRequestDto updatedMemberRequestDto) {
+    public MemberResponseDto updateMember(@PathVariable Long id, @RequestBody MemberUpdateDto updatedMemberRequestDto) {
         logger.info("Member Details Updated Successfully");
 
         return memberService.updateMember(id, updatedMemberRequestDto);

@@ -92,14 +92,14 @@ public class BookControllerTest {
     void testUpdateBook_ReturnsUpdatedBookResponseDto() throws Exception {
         mockMvc= MockMvcBuilders.standaloneSetup(bookController).build();
         int bookId = 1;
-        BookRequestDto updatedBookRequestDto = new BookRequestDto("Effective Java", "Joshua Bloch", "Programming", "123456789", 2001, 10);
+        int availableCopies = 10;
         BookResponseDto updatedBookResponseDto = new BookResponseDto(bookId, "Effective Java", "Joshua Bloch", "Programming", "123456789", 2001, 10);
 
-        Mockito.when(bookService.updateBook(Mockito.eq(bookId), Mockito.any(BookRequestDto.class))).thenReturn(updatedBookResponseDto);
+        Mockito.when(bookService.updateBook(Mockito.eq(bookId), availableCopies)).thenReturn(updatedBookResponseDto);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books/{id}", bookId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedBookRequestDto)))
+                .param("availableCopies",String.valueOf(availableCopies))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.availableCopies").value(10));
     }

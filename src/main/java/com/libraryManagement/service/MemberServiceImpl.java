@@ -1,6 +1,7 @@
 package com.libraryManagement.service;
 
 import com.libraryManagement.dto.requestDto.MemberRequestDto;
+import com.libraryManagement.dto.requestDto.MemberUpdateDto;
 import com.libraryManagement.dto.responseDto.MemberResponseDto;
 import com.libraryManagement.entities.Member;
 import com.libraryManagement.enums.MembershipStatus;
@@ -34,17 +35,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public MemberResponseDto updateMember(Long id, MemberRequestDto updatedMemberRequestDto) {
+    public MemberResponseDto updateMember(Long id, MemberUpdateDto updatedMemberRequestDto) {
         return memberRepository.findById(id)
                 .map(existingMember -> {
                     existingMember.setName(updatedMemberRequestDto.getName());
                     existingMember.setPhone(updatedMemberRequestDto.getPhone());
                     existingMember.setAddress(updatedMemberRequestDto.getAddress());
-
-                    if (!existingMember.getEmail().equals(updatedMemberRequestDto.getEmail())) {
-                        throw new EmailUpdateNotAllowedException("Email update is not allowed. Once registered, email cannot be changed.");
-                    }
-
                     Member updatedMember = memberRepository.save(existingMember);
                     return mapToResponse(updatedMember);
                 })
