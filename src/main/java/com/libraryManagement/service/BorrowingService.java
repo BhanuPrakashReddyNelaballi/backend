@@ -12,4 +12,5 @@ public interface BorrowingService {
     BorrowingResponseDto returnBook(ReturnRequestDto request);
     List<BorrowingTransaction> getMemberTransactions(Long memberId);
     List<BorrowingTransaction> getOverdueTransactions();
+    List<BorrowingTransaction> getAllTransactions();
 }

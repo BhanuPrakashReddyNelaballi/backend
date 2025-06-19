@@ -1,6 +1,7 @@
 package com.libraryManagement.controller;
 
 import com.libraryManagement.dto.requestDto.BorrowRequestDto;
+import com.libraryManagement.dto.responseDto.BorrowingDto;
 import com.libraryManagement.dto.responseDto.BorrowingResponseDto;
 import com.libraryManagement.dto.requestDto.ReturnRequestDto;
 import com.libraryManagement.entities.BorrowingTransaction;
@@ -77,5 +78,20 @@ BorrowingController {
         logger.info("Overdue Transaction Details Fetched Successfully");
 
         return ResponseEntity.status(HttpStatus.OK).body(borrowingService.getOverdueTransactions());
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('LIBRARIAN')")
+    @GetMapping("/all")
+    public ResponseEntity<List<BorrowingDto>> getAllTransactions(){
+        List<BorrowingTransaction> txs= borrowingService.getAllTransactions();
+        List<BorrowingDto> dtos=txs.stream().map(tx-> new BorrowingDto(
+                tx.getTransactionID(),
+                tx.getBook().getBookId(),
+                tx.getMember().getMemberId(),
+                tx.getBorrowDate(),
+                tx.getReturnDate(),
+                tx.getStatus()
+        )).toList();
+        return ResponseEntity.ok(dtos);
     }
 }

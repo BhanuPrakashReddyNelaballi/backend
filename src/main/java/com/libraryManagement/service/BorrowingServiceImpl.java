@@ -98,6 +98,10 @@ public class BorrowingServiceImpl implements BorrowingService {
         LocalDate dueDate = LocalDate.now().minusDays(BORROWING_PERIOD_DAYS);
         return transactionRepo.findByStatusAndBorrowDateBefore(TransactionStatus.BORROWED, dueDate);
     }
+    @Override
+    public List<BorrowingTransaction> getAllTransactions(){
+        return transactionRepo.findAll();
+    }
 
     private boolean isBookAvailable(Integer bookId) {
         return bookRepo.findById(bookId)
