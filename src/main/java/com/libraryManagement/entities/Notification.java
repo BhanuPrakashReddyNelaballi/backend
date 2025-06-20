@@ -25,4 +25,5 @@ public class Notification {
     public void setMessage(String message) { this.message = message; }
     public LocalDate getDateSent() { return dateSent; }
     public void setDateSent(LocalDate dateSent) { this.dateSent = dateSent; }
+
 }
